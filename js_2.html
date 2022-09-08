@@ -31,11 +31,11 @@
         <p>JavaScript can change HTML attribute values. In this case JavaScript changes the value of the src (source) attribute of an image.</p>
 
         <div style="text-align: center">
-          <button onclick="document.getElementById('myBulbImage').src='./assets/images/pic_bulbon.gif'">Turn on the light</button>
+          <button id="onButton">Turn on the light</button>
 
           <img id="myBulbImage" src="./assets/images/pic_bulboff.gif" style="width:100px">
 
-          <button onclick="document.getElementById('myBulbImage').src='./assets/images/pic_bulboff.gif'">Turn off the light</button>
+          <button id="offButton">Turn off the light</button>
         </div>
       </article>
 
@@ -57,6 +57,22 @@
       </article>
 
     </main>
+
+    <script>
+
+      const myImage = document.getElementById('myBulbImage');
+
+      const onBtn = document.getElementById('onButton');
+      onBtn.addEventListener('click', function(e) {
+        myImage.src = "./assets/images/pic_bulbon.gif"
+      })
+
+      const offBtn = document.getElementById('offButton')
+      offBtn.addEventListener('click', function(e) {
+        myImage.src = "./assets/images/pic_bulboff.gif"
+      })
+
+    </script>
 
   </body>
 </html>
