@@ -34,11 +34,13 @@
         <p>JavaScript can change HTML attribute values. In this case JavaScript changes the value of the src (source) attribute of an image.</p>
 
         <div style="text-align: center">
-          <button id="onButton">Turn on the light</button>
+          <!-- <button id="onButton">Turn on the light</button> -->
 
           <img id="myBulbImage" src="./assets/images/pic_bulboff.gif" style="width:100px">
 
-          <button id="offButton">Turn off the light</button>
+          <!-- <button id="offButton">Turn off the light</button> -->
+
+          <button id="toggleButton">Toggle the light</button>
         </div>
       </article>
 
@@ -69,6 +71,31 @@
 
       const myImage = document.getElementById('myBulbImage');
 
+      // let's make a toggle button
+      let isLightOn = false;
+      const toggleBtn = document.getElementById('toggleButton');
+
+      toggleBtn.addEventListener('click', function(e) {
+
+        isLightOn = !isLightOn;
+        
+        // check for src
+        if (isLightOn) {
+          myImage.src = "./assets/images/pic_bulbon.gif"
+          console.log("turn the light on");
+        } else {
+          myImage.src = "./assets/images/pic_bulboff.gif"
+          console.log("Turn the light off");
+        }
+
+        /*
+        // ternary operator
+        (isLightOn) ? myImage.src = "./assets/images/pic_bulbon.gif" : myImage.src = "./assets/images/pic_bulboff.gif";        
+        */
+      })
+
+
+      /*
       const onBtn = document.getElementById('onButton');
       onBtn.addEventListener('click', function(e) {
         myImage.src = "./assets/images/pic_bulbon.gif"
@@ -78,6 +105,7 @@
       offBtn.addEventListener('click', function(e) {
         myImage.src = "./assets/images/pic_bulboff.gif"
       })
+      */
 
     </script>
 

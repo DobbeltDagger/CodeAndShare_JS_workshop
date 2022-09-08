@@ -34,11 +34,13 @@
         <p>JavaScript can change HTML attribute values. In this case JavaScript changes the value of the src (source) attribute of an image.</p>
 
         <div style="text-align: center">
-          <button id="onButton">Turn on the light</button>
+          <!-- <button id="onButton">Turn on the light</button> -->
 
           <img id="myBulbImage" src="./assets/images/pic_bulboff.gif" style="width:100px">
 
-          <button id="offButton">Turn off the light</button>
+          <!-- <button id="offButton">Turn off the light</button> -->
+
+          <button id="toggleButton">Toggle the light</button>
         </div>
       </article>
 
@@ -64,20 +66,36 @@
     <!-- Putting the javascript in the bottom of the doc -->
     <script type="text/javascript">
 
-      // let's look at document first:
-      console.log(document);
+      // let's add transformations to all images, when they're clicked!
+      // const images = document.querySelectorAll('img');
+      const images = document.getElementsByTagName('img');
+      console.log("Images:", images);
 
+      // let's loop through images
+      for (
+        let counter = 0;
+        counter < images.length;
+        counter = counter + 1
+      ) {
+        images[counter].addEventListener('click', function(e) {
+          console.log("I was clicked!");
+          const scaleValue = (Math.random() * 2) + 0.5;
+          const rotationValue = (Math.random() * 90) - 45;
+          images[counter].style.transform = `rotate(${rotationValue}deg) scale(${scaleValue})`;
+        })
+      }
+
+      
+      // let's make a toggle button
       const myImage = document.getElementById('myBulbImage');
+      let isLightOn = false;
 
-      const onBtn = document.getElementById('onButton');
-      onBtn.addEventListener('click', function(e) {
-        myImage.src = "./assets/images/pic_bulbon.gif"
+      const toggleBtn = document.getElementById('toggleButton');
+      toggleBtn.addEventListener('click', function(e) {
+        isLightOn = !isLightOn;
+        (isLightOn) ? myImage.src = "./assets/images/pic_bulbon.gif" : myImage.src = "./assets/images/pic_bulboff.gif";
       })
 
-      const offBtn = document.getElementById('offButton')
-      offBtn.addEventListener('click', function(e) {
-        myImage.src = "./assets/images/pic_bulboff.gif"
-      })
 
     </script>
 

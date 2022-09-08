@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <title>My 90s website</title>
+    <style>
+      body {
+        background-color: whitesmoke;
+        color: black;
+      }
+      main {
+        max-width: 60ch;
+        margin: 0px auto;
+      }
+      main img {
+        max-width: 100%;
+        height: auto;
+      }
+      article {
+        border-bottom: 1px solid black;
+        padding: 0px 0px 1em 0px;
+        margin-bottom: 1em;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0px 0px 1em 0px;
+      }
+
+      #dataContent {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1em;
+      }
+
+      #dataContent > div {
+        padding: 1.5em;
+        border-bottom: 5px solid purple;
+        box-shadow: 2px 2px 12px rgba(0,0,0,0.05);
+        background-color: #111;
+        color: white;
+      }
+
+      .icon img {
+        max-height: 3em;
+        width: auto;
+        margin-bottom: 1em;
+      }
+
+    </style>
+  </head>
+  <body>
+    <main>
+
+      <!-- Making an empty article with some generated content in it! -->
+      <article>
+
+        <div id="dataContent">hey!</div>
+
+      </article>
+
+
+      <!-- Making a new article with js -->
+      <article>
+        <h2>Changing the image source of img element</h2>
+        <p>JavaScript can change HTML attribute values. In this case JavaScript changes the value of the src (source) attribute of an image.</p>
+
+        <div style="text-align: center">
+          <!-- <button id="onButton">Turn on the light</button> -->
+
+          <img id="myBulbImage" src="./assets/images/pic_bulboff.gif" style="width:100px">
+
+          <!-- <button id="offButton">Turn off the light</button> -->
+
+          <button id="toggleButton">Toggle the light</button>
+        </div>
+      </article>
+
+
+      <article>
+        <h1>A big header</h1>
+        <p>Here's a <b>paragraph of text</b>,
+          that <u>can</u> span a <i>few lines</i>,
+          and <a href="https://aros.dk">has a link</a>
+          I can click</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis necessitatibus, molestias temporibus commodi unde veniam deserunt excepturi repudiandae ipsa alias quae, totam adipisci, quam laborum fuga accusantium recusandae quo facilis!</p>
+        <img src="./assets/images/rotating.gif" />
+      </article>
+      
+      <article>
+        <h1>Here's another article title</h1>
+        <p>Here's more text content inside a paragraph for you</p>
+        <img src="./assets/images/netscape.gif" />
+      </article>
+
+    </main>
+
+    <!-- Putting the javascript in the bottom of the doc -->
+    <script type="text/javascript">
+
+      // Let's describe content in an array, and render it to screen
+      const data = [
+        {
+          title: "Here's a book title",
+          imgUrl: "",
+          itemType: "book",
+          description: "<b>This</b> is a book about something ..."
+        },
+        {
+          title: "Here's another book title",
+          imgUrl: "",
+          itemType: "book",
+          description: "<b>This</b> is a another book about something ..."          
+        },
+        {
+          title: "Third chapter in book",
+          imgUrl: "",
+          itemType: "chapter",
+          description: "<b>This</b> is a another book about something ... Lorem ipsum, Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis necessitatibus, molestias temporibus commodi unde veniam deserunt excepturi repudiandae ipsa alias quae, totam adipisci, quam laborum fuga accusantium recusandae quo facilis!"
+        },
+        {
+          title: "Interesting Paper",
+          imgUrl: "",
+          itemType: "document",
+          description: "<b>This</b> is a another book about something ..."          
+        }
+      ];
+      console.log("data:", data);
+
+      const dataElm = document.getElementById('dataContent');
+      dataElm.innerHTML = "";
+
+      // Let's loop over data
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+
+        // let's generate some HTML
+        const itemWrapper = document.createElement('div');
+
+        const iconWrapper = document.createElement('div');
+        iconWrapper.classList.add('icon');
+        const icon = document.createElement('img');
+        if (data[i].itemType === 'book') {
+          icon.src = "./assets/images/book.png"
+        } else if (data[i].itemType === 'chapter') {
+          icon.src = "./assets/images/chapter.png"
+        } else {
+          icon.src = './assets/images/document.png';
+        }
+        iconWrapper.appendChild(icon);
+
+        const title = document.createElement('h2');
+        title.innerText = data[i].title;
+
+        const description = document.createElement('p');
+        description.innerHTML = data[i].description;
+
+        itemWrapper.appendChild(iconWrapper);
+        itemWrapper.appendChild(title);
+        itemWrapper.appendChild(description);
+        dataElm.appendChild(itemWrapper);
+      }
+
+
+      // let's add transformations to all images, when they're clicked!
+      // const images = document.querySelectorAll('img');
+      const images = document.getElementsByTagName('img');
+      console.log("Images:", images);
+
+      // let's loop through images
+      for (
+        let counter = 0;
+        counter < images.length;
+        counter = counter + 1
+      ) {
+        images[counter].addEventListener('click', function(e) {
+          console.log("I was clicked!");
+          const scaleValue = (Math.random() * 2) + 0.5;
+          const rotationValue = (Math.random() * 90) - 45;
+          images[counter].style.transform = `rotate(${rotationValue}deg) scale(${scaleValue})`;
+        })
+      }
+
+      
+      // let's make a toggle button
+      const myImage = document.getElementById('myBulbImage');
+      let isLightOn = false;
+
+      const toggleBtn = document.getElementById('toggleButton');
+      toggleBtn.addEventListener('click', function(e) {
+        isLightOn = !isLightOn;
+        (isLightOn) ? myImage.src = "./assets/images/pic_bulbon.gif" : myImage.src = "./assets/images/pic_bulboff.gif";
+      })
+
+
+    </script>
+
+  </body>
+</html>
