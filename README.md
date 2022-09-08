@@ -1,3 +1,9 @@
+# Code&amp;Share Javascript workshop code examples
+
+This code base can be downloaded by all particpants in the workshop
+
+***
+
 ## Animated hand
 
 Stolen from the website artistsandhackers.org  
